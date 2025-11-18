@@ -1,11 +1,5 @@
-// =====================================================
-// DIGITAL POINT - API CLIENT PARA PRODUCTOS
-// Reemplaza productos_data.js con datos de MySQL
-// =====================================================
-
 const API_BASE_URL = 'api/productos.php';
 
-// Cache global de productos
 let PRODUCTOS_DB = {
   notebooks: {},
   monitors: {}
@@ -14,17 +8,11 @@ let PRODUCTOS_DB = {
 let productsLoaded = false;
 let loadingPromise = null;
 
-// =====================================================
-// CARGAR TODOS LOS PRODUCTOS DESDE LA BD
-// =====================================================
-
 async function loadProductsFromDB() {
-  // Si ya están cargados, retornar cache
   if (productsLoaded) {
     return PRODUCTOS_DB;
   }
 
-  // Si ya hay una petición en curso, esperar esa
   if (loadingPromise) {
     return loadingPromise;
   }
@@ -38,7 +26,6 @@ async function loadProductsFromDB() {
     })
     .then(data => {
       if (data.success && Array.isArray(data.data)) {
-        // Organizar productos por tipo
         PRODUCTOS_DB.notebooks = {};
         PRODUCTOS_DB.monitors = {};
 
@@ -52,13 +39,12 @@ async function loadProductsFromDB() {
 
         productsLoaded = true;
 
-        console.log('✅ Productos cargados desde BD:', {
+        console.log('Productos cargados desde BD:', {
           notebooks: Object.keys(PRODUCTOS_DB.notebooks).length,
           monitors: Object.keys(PRODUCTOS_DB.monitors).length,
           total: data.data.length
         });
 
-        // Disparar evento personalizado
         window.dispatchEvent(new CustomEvent('products:loaded', {
           detail: PRODUCTOS_DB
         }));
@@ -69,17 +55,13 @@ async function loadProductsFromDB() {
       }
     })
     .catch(error => {
-      console.error('❌ Error al cargar productos:', error);
+      console.error('Error al cargar productos:', error);
       loadingPromise = null;
       throw error;
     });
 
   return loadingPromise;
 }
-
-// =====================================================
-// HELPER: EJECUTAR AL TENER PRODUCTOS LISTOS
-// =====================================================
 
 function onProductsReady(callback) {
   if (productsLoaded) {
@@ -91,12 +73,7 @@ function onProductsReady(callback) {
   }
 }
 
-// =====================================================
-// OBTENER PRODUCTO POR ID (ASÍNCRONO)
-// =====================================================
-
 async function getProductById(id) {
-  // Intentar desde cache primero
   if (productsLoaded) {
     const producto = PRODUCTOS_DB.notebooks[id] || PRODUCTOS_DB.monitors[id];
     if (producto) {
@@ -104,7 +81,6 @@ async function getProductById(id) {
     }
   }
 
-  // Si no está en cache, cargar todos los productos
   try {
     await loadProductsFromDB();
     return PRODUCTOS_DB.notebooks[id] || PRODUCTOS_DB.monitors[id] || null;
@@ -113,10 +89,6 @@ async function getProductById(id) {
     return null;
   }
 }
-
-// =====================================================
-// OBTENER PRODUCTOS POR TIPO
-// =====================================================
 
 async function getProductsByType(type) {
   await loadProductsFromDB();
@@ -130,20 +102,12 @@ async function getProductsByType(type) {
   return [];
 }
 
-// =====================================================
-// OBTENER TODOS LOS PRODUCTOS
-// =====================================================
-
 function getAllProducts() {
   return {
     ...PRODUCTOS_DB.notebooks,
     ...PRODUCTOS_DB.monitors
   };
 }
-
-// =====================================================
-// BUSCAR PRODUCTOS
-// =====================================================
 
 function searchProducts(query) {
   const all = getAllProducts();
@@ -157,10 +121,6 @@ function searchProducts(query) {
   );
 }
 
-// =====================================================
-// FILTRAR POR CATEGORÍA
-// =====================================================
-
 function getProductsByCategory(category) {
   const all = getAllProducts();
   return Object.values(all).filter(p =>
@@ -168,11 +128,6 @@ function getProductsByCategory(category) {
   );
 }
 
-// =====================================================
-// INICIALIZACIÓN AUTOMÁTICA
-// =====================================================
-
-// Cargar productos automáticamente al cargar la página
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     loadProductsFromDB().catch(error => {
@@ -180,15 +135,10 @@ if (document.readyState === 'loading') {
     });
   });
 } else {
-  // Si el DOM ya está listo, cargar inmediatamente
   loadProductsFromDB().catch(error => {
     console.error('Error en carga inicial de productos:', error);
   });
 }
-
-// =====================================================
-// EXPONER FUNCIONES GLOBALMENTE
-// =====================================================
 
 window.PRODUCTOS_DB = PRODUCTOS_DB;
 window.loadProductsFromDB = loadProductsFromDB;
