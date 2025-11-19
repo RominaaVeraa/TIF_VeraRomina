@@ -426,7 +426,7 @@
     </script>
     <script src="js/pages/common_cart.js"></script>
     <script src="js/global.js"></script>
-    <script src="js/productos_data.php"></script>
+    <script src="js/productos_api.js"></script>
     <script src="js/pages/proceso_pago.js"></script>
     <script src="js/components.js"></script>
 </body>
