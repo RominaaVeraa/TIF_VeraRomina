@@ -309,7 +309,7 @@
 
     <script src="js/pages/common_cart.js"></script>
     <script src="js/global.js"></script>
-    <script src="js/api/productos_api.js"></script>
+    <script src="js/productos_api.js"></script>
     <script src="js/pages/login.js"></script>
     <script src="js/components.js"></script>
     <script src="js/admin_controls.js"></script>
