@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /digitalpoint/
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+  
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^api/([^/]+)$ api/$1.php [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L,QSA]
