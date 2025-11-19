@@ -1,12 +1,10 @@
 <?php
 require_once 'includes/config.php';
 
-// Iniciar sesión solo si no está activa
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Obtener ofertas activas desde la base de datos
 try {
     $stmt = $pdo->query("
         SELECT 
@@ -40,9 +38,7 @@ try {
     $ofertas = [];
 }
 
-// Función para obtener specs según el tipo
 function getSpecs($oferta) {
-    // Aquí puedes personalizar las specs según tus necesidades
     $specs = '';
     
     if ($oferta['tipo'] === 'notebook') {
@@ -54,9 +50,8 @@ function getSpecs($oferta) {
     return $specs;
 }
 
-// Función para determinar categorías de filtro
 function getFilterCategories($oferta) {
-    $categories = [$oferta['tipo'] . 's']; // notebooks o monitors
+    $categories = [$oferta['tipo'] . 's'];
     
     if ($oferta['categoria']) {
         $catLower = strtolower($oferta['categoria']);
@@ -221,7 +216,6 @@ function getFilterCategories($oferta) {
     <?php include 'includes/footer.php'; ?>
 
     <script>
-        // Pasar datos de ofertas a JavaScript
         window.offersData = <?php echo json_encode(array_map(function($o) {
             $imagenes = !empty($o['imagenes']) ? explode(',', $o['imagenes']) : [];
             return [
@@ -238,7 +232,6 @@ function getFilterCategories($oferta) {
             ];
         }, $ofertas)); ?>;
 
-        // 🔥 NUEVO: Emitir evento para que admin_controls sepa que hay productos
         window.addEventListener('load', () => {
             window.dispatchEvent(new Event('products:loaded'));
         });
