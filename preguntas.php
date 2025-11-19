@@ -395,7 +395,7 @@
 
     <script src="js/pages/common_cart.js"></script>
     <script src="js/global.js"></script>
-    <script src="js/productos_data.php"></script>
+    <script src="js/productos_api.js"></script>
     <script src="js/pages/preguntas.js"></script>
     <script src="js/pages/index.js"></script>
     <script src="js/components.js"></script>
