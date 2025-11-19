@@ -1,11 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Point - Notebooks y Monitores</title>
-    <link rel="stylesheet" href="css/global.css">    
-    <link rel="stylesheet" href="css/pages/index.css">
+    <title>Digital Point - Ficha de Producto</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/pages/ficha_producto.css">
 </head>
 <body data-user-role="<?php 
     session_start();
@@ -13,374 +13,176 @@
         ? htmlspecialchars($_SESSION['usuario']['rol']) 
         : 'guest';
 ?>">
-    
     <?php include 'includes/header.php'; ?>
 
-    <section class="hero">
-        <div class="hero-slider">
-
-            <div class="hero-slide active">
-                <img src="images/Notebook/notebook1.png" alt="MSI Modern 15 A11" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook2.png" alt="MSI Prestige 14" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook3.png" alt="MSI Creator Z16" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook4.png" alt="MSI Stealth 15M" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook5.png" alt="MSI Summit E13 Flip" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook6.png" alt="MSI GF63 Thin" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook7.png" alt="MSI Katana GF76" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook8.png" alt="MSI Raider GE76" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook9.png" alt="MSI Vector GP66" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Notebook/notebook10.png" alt="MSI Pulse 15" class="hero-image">
-            </div>
-
-            <div class="hero-slide">
-                <img src="images/Monitores/monitor1.png" alt="MSI Optix G27C7" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Monitores/monitor2.png" alt="MSI MAG274QRF-QD" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Monitores/monitor3.png" alt="MSI Oculux NXG253R" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Monitores/monitor4.png" alt="MSI Modern MD272Q" class="hero-image">
-            </div>
-            <div class="hero-slide">
-                <img src="images/Monitores/monitor5.png" alt="MSI G24C4" class="hero-image">
-            </div>
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">LO ÚLTIMO EN</span>
-                <span class="title-line gradient-text">TECNOLOGÍA</span>
-            </h1>
-            <p class="hero-subtitle">Descubrí lo que tenemos para ofrecerte</p>
-            <div class="cta-buttons">
-                <a href="listado_producto.php" class="cta-btn cta-primary">Ver Productos</a>
-                <a href="ofertas.php" class="cta-btn cta-secondary">Ofertas Especiales</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="categories" id="notebooks">
+    <div class="breadcrumb">
         <div class="container">
-            <h2 class="section-title">
-                <span class="title-decoration"></span>
-                Nuestras Categorías
-                <span class="title-decoration"></span>
-            </h2>
-            <div class="category-grid">
-                <div class="category-card notebooks-card">
-                    <div class="category-icon">
-                        <img src="images/Notebook/notebook1.png" alt="Notebooks" class="category-bg-image">
+            <nav class="breadcrumb-nav" aria-label="Ruta de navegación">
+                <a href="index.php">Inicio</a>
+                <span class="breadcrumb-separator">></span>
+                <a href="#" id="category-breadcrumb">Productos</a>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-current" id="product-breadcrumb">Producto</span>
+            </nav>
+        </div>
+    </div>
+
+    <main class="product-main">
+        <div class="container">
+            <div class="product-container" id="product-container">
+                <div class="product-images">
+                    <div class="main-image-container">
+                        <img
+                            src="data:image/gif;base64,R0lGODlhAQABAAAAACw="
+                            alt="Imagen del producto"
+                            id="mainProductImage"
+                            class="main-product-image">
+                        <div class="image-nav">
+                            <button class="nav-btn prev-btn" onclick="previousImage()" aria-label="Imagen anterior">‹</button>
+                            <button class="nav-btn next-btn" onclick="nextImage()" aria-label="Imagen siguiente">›</button>
+                        </div>
                     </div>
-                    <div class="category-content">
-                        <h3 class="category-title">NOTEBOOKS</h3>
-                        <p class="category-desc">Desde uso diario hasta gaming extremo. Encontrá la laptop perfecta con rendimiento MSI.</p>
-                        <button class="category-btn" onclick="window.location.href='notebooks.php'">EXPLORAR NOTEBOOKS</button>
-                    </div>
-                    <div class="category-glow"></div>
+                    <div class="thumbnail-gallery" id="thumbnail-gallery"></div>
                 </div>
-                <div class="category-card monitores-card">
-                    <div class="category-icon">
-                        <img src="images/Monitores/monitor5.png" alt="Monitores" class="category-bg-image">
+
+                <div class="product-info">
+                    <div class="product-badges" id="product-badges"></div>
+                    <h1 class="product-title" id="product-title">Producto</h1>
+                    <div class="product-rating">
+                        <div class="stars" id="product-stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <span class="rating-text" id="rating-text">(0/5) - 0 reseñas</span>
                     </div>
-                    <div class="category-content">
-                        <h3 class="category-title">MONITORES</h3>
-                        <p class="category-desc">Gaming, 4K y oficina. Fluidez y color de punta para cada necesidad.</p>
-                        <button class="category-btn" onclick="window.location.href='monitores.php'">EXPLORAR MONITORES</button>
+                    <div class="product-price" id="product-price">$0</div>
+                    <div class="product-description" id="product-description">Descripción del producto...</div>
+                    <div class="product-specs">
+                        <h3>Especificaciones Principales:</h3>
+                        <div class="specs-grid" id="specs-grid"></div>
                     </div>
-                    <div class="category-glow"></div>
+                    <div class="quantity-section">
+                        <label for="product-quantity" class="quantity-label">Cantidad:</label>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="changeQuantity(-1)" aria-label="Disminuir cantidad">−</button>
+                            <input type="number" id="product-quantity" name="quantity" class="quantity-input" value="1" min="1" max="10" readonly aria-label="Cantidad del producto">
+                            <button class="quantity-btn" onclick="changeQuantity(1)" aria-label="Aumentar cantidad">+</button>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="add-to-cart-btn primary-btn" onclick="addToCartFromDetail()">
+                            <img src="images/icons/carrito-de-compras.png" alt="Carrito" class="btn-icon-img">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                    <div class="product-features">
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="images/icons/envio.png" alt="Envío">
+                                </div>
+                                <div class="feature-text">
+                                    <strong>Envío gratis</strong>
+                                    <span>En 24-48h</span>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="images/icons/firewall.png" alt="Devolución">
+                                </div>
+                                <div class="feature-text">
+                                    <strong>Devolución gratuita</strong>
+                                    <span>30 días</span>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="images/icons/escudo.png" alt="Garantía">
+                                </div>
+                                <div class="feature-text">
+                                    <strong>Garantía oficial</strong>
+                                    <span>2 años</span>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <img src="images/icons/tarjeta-de-credito.png" alt="Cuotas">
+                                </div>
+                                <div class="feature-text">
+                                    <strong>12 cuotas</strong>
+                                    <span>Sin interés</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="products" id="productos">
-        <div class="container">
-            <div class="products-header">
+            <section class="product-details-section" id="product-details-section" aria-labelledby="product-details-title">
+                <h2 id="product-details-title" class="visually-hidden">Detalles del producto</h2>
+                <div class="details-tabs">
+                    <button class="tab-btn active" onclick="switchTab('characteristics')">Características</button>
+                    <button class="tab-btn" onclick="switchTab('specifications')">Especificaciones</button>
+                    <button class="tab-btn" onclick="switchTab('reviews')">Reseñas</button>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="characteristics-tab">
+                        <div class="characteristics">
+                            <h2>Características Detalladas</h2>
+                            <div class="tech-specs" id="tech-specs"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="specifications-tab">
+                        <div class="specifications">
+                            <h2>Especificaciones Técnicas</h2>
+                            <div class="spec-table" id="spec-table"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="reviews-tab">
+                        <div class="reviews">
+                            <h2>Reseñas de Clientes</h2>
+                            <div class="reviews-summary">
+                                <div class="rating-overview">
+                                    <div class="overall-rating">
+                                        <span class="rating-number">4.2</span>
+                                        <div class="rating-stars">
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star">★</span>
+                                        </div>
+                                        <span class="total-reviews">127 reseñas</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews-list" id="reviews-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-products" id="related-products" style="display: none;">
                 <h2 class="section-title">
                     <span class="title-decoration"></span>
-                    Productos Destacados
+                    Productos Relacionados
                     <span class="title-decoration"></span>
                 </h2>
-                <a href="listado_producto.php" class="view-all-btn">Ver más productos</a>
-            </div>
-            
-            <div class="product-grid">
-
-                <div class="product-card" data-product-id="notebook1">
-                    <div class="product-image">
-                        <img src="images/Notebook/notebook1.png" alt="MSI Modern 15 A11">
-                        <div class="product-overlay" onclick="window.location.href='ficha_producto.php?id=notebook1'">
-                            <span class="view-details">Ver Detalles</span>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">MSI Modern 15 A11</h3>
-                        <div class="product-rating">
-                            <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star empty"></span>
-                        </div>
-                        <div class="product-price">$89.999</div>
-                        <button class="add-to-cart" onclick="event.stopPropagation(); window.DigitalPoint.addToCart('notebook1', 89999, 'images/Notebook/notebook1.png', 'MSI Modern 15 A11')">Agregar al Carrito</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="notebook6">
-                    <div class="product-image">
-                        <img src="images/Notebook/notebook6.png" alt="MSI GF63 Thin">
-                        <div class="product-overlay" onclick="window.location.href='ficha_producto.php?id=notebook6'">
-                            <span class="view-details">Ver Detalles</span>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">MSI GF63 Thin</h3>
-                        <div class="product-rating">
-                            <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                        </div>
-                        <div class="product-price">$179.999</div>
-                        <button class="add-to-cart" onclick="event.stopPropagation(); window.DigitalPoint.addToCart('notebook6', 179999, 'images/Notebook/notebook6.png', 'MSI GF63 Thin')">Agregar al Carrito</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="notebook10">
-                    <div class="product-image">
-                        <img src="images/Notebook/notebook10.png" alt="MSI Pulse 15">
-                        <div class="product-overlay" onclick="window.location.href='ficha_producto.php?id=notebook10'">
-                            <span class="view-details">Ver Detalles</span>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">MSI Pulse 15</h3>
-                        <div class="product-rating">
-                            <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                        </div>
-                        <div class="product-price">$199.999</div>
-                        <button class="add-to-cart" onclick="event.stopPropagation(); window.DigitalPoint.addToCart('notebook10', 199999, 'images/Notebook/notebook10.png', 'MSI Pulse 15')">Agregar al Carrito</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="monitor1">
-                    <div class="product-image">
-                        <img src="images/Monitores/monitor1.png" alt="MSI Optix G27C7 27&quot; 240Hz QHD Curvo">
-                        <div class="product-overlay" onclick="window.location.href='ficha_producto.php?id=monitor1'">
-                            <span class="view-details">Ver Detalles</span>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">MSI Optix G27C7 27" 240Hz QHD Curvo</h3>
-                        <div class="product-rating">
-                            <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                        </div>
-                        <div class="product-price">$89.999</div>
-                        <button class="add-to-cart" onclick="event.stopPropagation(); window.DigitalPoint.addToCart('monitor1', 89999, 'images/Monitores/monitor1.png', 'MSI Optix G27C7 27&quot; 240Hz QHD Curvo')">Agregar al Carrito</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="monitor4">
-                    <div class="product-image">
-                        <img src="images/Monitores/monitor4.png" alt="MSI Modern MD272Q 27&quot; 4K IPS USB-C">
-                        <div class="product-overlay" onclick="window.location.href='ficha_producto.php?id=monitor4'">
-                            <span class="view-details">Ver Detalles</span>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">MSI Modern MD272Q 27" 4K IPS USB-C</h3>
-                        <div class="product-rating">
-                            <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star empty"></span>
-                        </div>
-                        <div class="product-price">$179.999</div>
-                        <button class="add-to-cart" onclick="event.stopPropagation(); window.DigitalPoint.addToCart('monitor4', 179999, 'images/Monitores/monitor4.png', 'MSI Modern MD272Q 27&quot; 4K IPS USB-C')">Agregar al Carrito</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-product-id="monitor5">
-                    <div class="product-image">
-                        <img src="images/Monitores/monitor5.png" alt="MSI G24C4 24&quot; 144Hz IPS Gaming Curvo">
-                        <div class="product-overlay" onclick="window.location.href='ficha_producto.php?id=monitor5'">
-                            <span class="view-details">Ver Detalles</span>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">MSI G24C4 24" 144Hz IPS Gaming Curvo</h3>
-                        <div class="product-rating">
-                            <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                        </div>
-                        <div class="product-price">$64.999</div>
-                        <button class="add-to-cart" onclick="event.stopPropagation(); window.DigitalPoint.addToCart('monitor5', 64999, 'images/Monitores/monitor5.png', 'MSI G24C4 24&quot; 144Hz IPS Gaming Curvo')">Agregar al Carrito</button>
-                    </div>
-                </div>
-
-            </div>
+                <div class="related-grid" id="related-grid"></div>
+            </section>
         </div>
-    </section>
-
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-decoration"></span>
-                ¿Por qué elegirnos?
-                <span class="title-decoration"></span>
-            </h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/icons/envio.png" alt="Envío Rápido" class="feature-image">
-                    </div>
-                    <h3 class="feature-title">Envío Rápido</h3>
-                    <p class="feature-desc">Recibí tu producto en 24-48hs en todo el país</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/icons/escudo.png" alt="Garantía Oficial" class="feature-image">
-                    </div>
-                    <h3 class="feature-title">Garantía Oficial</h3>
-                    <p class="feature-desc">Todos nuestros productos con garantía oficial</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/icons/tarjeta-de-credito.png" alt="Múltiples Pagos" class="feature-image">
-                    </div>
-                    <h3 class="feature-title">Múltiples Pagos</h3>
-                    <p class="feature-desc">Aceptamos todas las formas de pago</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="images/icons/servicio-al-cliente.png" alt="Soporte 24/7" class="feature-image">
-                    </div>
-                    <h3 class="feature-title">Soporte 24/7</h3>
-                    <p class="feature-desc">Atención personalizada cuando lo necesites</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="reviews">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-decoration"></span>
-                Lo Que Dicen Nuestros Clientes
-                <span class="title-decoration"></span>
-            </h2>
-            <div class="review-slider">
-                <div class="review-content active-review">
-                    <div class="review-stars">
-                        <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                    </div>
-                    <p class="review-text">"Mi primer pedido llegó hoy en perfectas condiciones. Excelente servicio y comunicación. Recomiendo 100%."</p>
-                    <div class="review-author">
-                        <div class="author-avatar">TB</div>
-                        <div class="author-info">
-                            <span class="author-name">Tomás Brown</span>
-                            <span class="author-location">Buenos Aires</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-content">
-                    <div class="review-stars">
-                        <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                    </div>
-                    <p class="review-text">"Increíble la calidad de los productos MSI que venden. La notebook que compré es una bestia, llegó súper rápido y el empaque impecable. Muy profesionales."</p>
-                    <div class="review-author">
-                        <div class="author-avatar">ML</div>
-                        <div class="author-info">
-                            <span class="author-name">María López</span>
-                            <span class="author-location">Córdoba</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-content">
-                    <div class="review-stars">
-                        <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star empty"></span>
-                    </div>
-                    <p class="review-text">"Compré un monitor gaming y quedé fascinado. La atención al cliente es excelente, respondieron todas mis dudas antes de comprar. Totalmente recomendable."</p>
-                    <div class="review-author">
-                        <div class="author-avatar">JG</div>
-                        <div class="author-info">
-                            <span class="author-name">Juan Gutiérrez</span>
-                            <span class="author-location">Rosario</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-content">
-                    <div class="review-stars">
-                        <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                    </div>
-                    <p class="review-text">"La mejor tienda de tecnología que encontré online. Precios competitivos, envío rápido y productos originales con garantía. Ya es mi segunda compra y no será la última."</p>
-                    <div class="review-author">
-                        <div class="author-avatar">AS</div>
-                        <div class="author-info">
-                            <span class="author-name">Ana Sánchez</span>
-                            <span class="author-location">Mendoza</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="review-content">
-                    <div class="review-stars">
-                        <span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>
-                    </div>
-                    <p class="review-text">"Servicio impecable de principio a fin. El seguimiento del pedido fue perfecto y el producto llegó antes de lo esperado. Digital Point se ganó un cliente fiel."</p>
-                    <div class="review-author">
-                        <div class="author-avatar">CR</div>
-                        <div class="author-info">
-                            <span class="author-name">Carlos Rodríguez</span>
-                            <span class="author-location">La Plata</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="review-controls">
-                <button class="review-btn review-prev">❮</button>
-                <div class="review-dots"></div>
-                <button class="review-btn review-next">❯</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="newsletter">
-        <div class="newsletter-content">
-            <h2 class="newsletter-title">Suscríbete a nuestro Newsletter</h2>
-            <p class="newsletter-subtitle">Sé el primero en conocer las últimas ofertas y productos</p>
-            <form class="newsletter-form" id="newsletter-form">
-                <div class="input-group">
-                    <input 
-                        type="email" 
-                        class="newsletter-input" 
-                        id="newsletter-email" 
-                        name="email"
-                        placeholder="Tu email..." 
-                        autocomplete="email"
-                        required>
-                    <button type="submit" class="newsletter-btn">Suscribirse</button>
-                </div>
-            </form>
-        </div>
-    </section>
+    </main>
 
     <?php include 'includes/footer.php'; ?>
 
     <script src="js/pages/common_cart.js"></script>
     <script src="js/global.js"></script>
     <script src="js/productos_api.js"></script>
-    <script src="js/components.js"></script>
+    <script src="js/pages/ficha_producto.js"></script> 
     <script src="js/pages/index.js"></script>
+    <script src="js/components.js"></script>
 </body>
 </html>
